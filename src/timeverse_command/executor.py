@@ -188,8 +188,8 @@ class AsyncCommandSession:
                     decoded = line.decode("utf-8", errors="replace")
                 except Exception:
                     decoded = line.decode("latin-1", errors="replace")
-                # 去掉行尾换行符
-                decoded = decoded.rstrip("\n").rstrip("\r")
+                # 去掉行尾换行符和多余空白
+                decoded = decoded.rstrip("\r\n ")
                 if decoded:
                     yield {"stream": stream_name, "delta": decoded}
 
