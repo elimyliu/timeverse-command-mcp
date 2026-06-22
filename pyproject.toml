@@ -9,7 +9,7 @@ description = "MCP server for executing shell, Python, and Node.js commands loca
 readme = "README.md"
 license = { text = "MIT" }
 authors = [
-    { name = "TimeVerse Studio" },
+    { name = "elimyliu" },
 ]
 keywords = [
     "mcp",
@@ -52,9 +52,9 @@ dev = [
 timeverse-command-mcp = "timeverse_command.server:main"
 
 [project.urls]
-Homepage = "https://github.com/timeverse/timeverse-command-mcp"
-Documentation = "https://github.com/timeverse/timeverse-command-mcp/blob/main/docs/USAGE.md"
-Issues = "https://github.com/timeverse/timeverse-command-mcp/issues"
+Homepage = "https://github.com/elimyliu/timeverse-command-mcp"
+Documentation = "https://github.com/elimyliu/timeverse-command-mcp/blob/main/docs/USAGE.md"
+Issues = "https://github.com/elimyliu/timeverse-command-mcp/issues"
 
 # ==================== Hatch 构建配置 ====================
 

@@ -4,7 +4,7 @@
 
 [![PyPI](https://img.shields.io/pypi/v/timeverse-command-mcp)](https://pypi.org/project/timeverse-command-mcp/)
 [![Python](https://img.shields.io/pypi/pyversions/timeverse-command-mcp)](https://pypi.org/project/timeverse-command-mcp/)
-[![License](https://img.shields.io/github/license/timeverse/timeverse-command-mcp)](LICENSE)
+[![License](https://img.shields.io/github/license/elimyliu/timeverse-command-mcp)](LICENSE)
 
 ---
 
@@ -41,7 +41,7 @@ pip install timeverse-command-mcp
 ### 方式 2：源码安装（开发用）
 
 ```bash
-git clone https://github.com/timeverse/timeverse-command-mcp.git
+git clone https://github.com/elimyliu/timeverse-command-mcp.git
 cd timeverse-command-mcp
 pip install -e ".[dev]"
 ```
@@ -116,7 +116,7 @@ asyncio.run(main())
 
 ```bash
 # 克隆
-git clone https://github.com/timeverse/timeverse-command-mcp.git
+git clone https://github.com/elimyliu/timeverse-command-mcp.git
 cd timeverse-command-mcp
 
 # 安装依赖（含 dev 工具）
