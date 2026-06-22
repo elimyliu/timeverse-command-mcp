@@ -117,7 +117,7 @@ class TestAsyncCommandSession:
         """流式输出应逐行到达"""
         session = AsyncCommandSession(
             tool_call_id="t4",
-            command="echo line1; echo line2; echo line3",
+            command="echo line1 && echo line2 && echo line3",
             tool_name="bash",
         )
         chunks = []
