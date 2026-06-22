@@ -61,7 +61,7 @@ app = Server("timeverse-command")
 # ==================== 工具定义 ====================
 
 
-@app.list_tools()
+@app.list_tools()  # type: ignore[untyped-decorator,no-untyped-call]
 async def list_tools() -> list[Tool]:
     """
     注册三个工具到 MCP Server
@@ -186,8 +186,8 @@ async def _run_and_collect(name: str, args: dict[str, Any]) -> str:
     executor.register(session)
 
     # 流式累积
-    stdout_lines: list = []
-    stderr_lines: list = []
+    stdout_lines: list[str] = []
+    stderr_lines: list[str] = []
     exit_code = -1
     status = "unknown"
 
@@ -221,8 +221,8 @@ async def _run_and_collect(name: str, args: dict[str, Any]) -> str:
     return json.dumps(result, ensure_ascii=False, indent=2)
 
 
-@app.call_tool()
-async def call_tool(name: str, arguments: dict) -> list[TextContent]:
+@app.call_tool()  # type: ignore[untyped-decorator]
+async def call_tool(name: str, arguments: dict[str, Any]) -> list[TextContent]:
     """
     处理 LLM 的工具调用
 

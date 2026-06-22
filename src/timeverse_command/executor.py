@@ -176,7 +176,9 @@ class AsyncCommandSession:
             return
 
         # 启动两个读取协程（stdout / stderr 并行读取）
-        async def read_stream(stream: asyncio.StreamReader, stream_name: str):
+        async def read_stream(
+            stream: asyncio.StreamReader, stream_name: str
+        ) -> AsyncIterator[dict[str, Any]]:
             """逐行读取子进程的 stdout 或 stderr"""
             while True:
                 line = await stream.readline()
@@ -192,11 +194,11 @@ class AsyncCommandSession:
                     yield {"stream": stream_name, "delta": decoded}
 
         # 合并 stdout / stderr 的流
-        async def merge_streams():
+        async def merge_streams() -> AsyncIterator[dict[str, Any]]:
             """合并两个 stream 的输出到统一队列"""
-            queue: asyncio.Queue = asyncio.Queue()
+            queue: asyncio.Queue[dict[str, Any]] = asyncio.Queue()
 
-            async def pump(stream: asyncio.StreamReader, name: str):
+            async def pump(stream: asyncio.StreamReader, name: str) -> None:
                 async for chunk in read_stream(stream, name):
                     await queue.put(chunk)
                 await queue.put({"_eof": name})
@@ -225,10 +227,10 @@ class AsyncCommandSession:
             if self.timeout:
                 exit_code = await asyncio.wait_for(
                     self._process.wait(),
-                    timeout=self.timeout,  # type: ignore
+                    timeout=self.timeout,
                 )
             else:
-                exit_code = await self._process.wait()  # type: ignore
+                exit_code = await self._process.wait()
         except asyncio.TimeoutError:
             if self._process and self._process.returncode is None:
                 self._process.kill()
