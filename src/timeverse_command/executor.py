@@ -31,6 +31,7 @@
         executor.unregister(session.tool_call_id)
 """
 import asyncio
+import os
 import platform
 import time
 from dataclasses import dataclass, field
@@ -159,7 +160,7 @@ class AsyncCommandSession:
                 stdout=asyncio.subprocess.PIPE,
                 stderr=asyncio.subprocess.PIPE,
                 cwd=self.cwd,
-                env={**__import__("os").environ, **(self.env or {})} if self.env else None,
+                env={**os.environ, **(self.env or {})} if self.env else None,
             )
         except FileNotFoundError as e:
             yield {

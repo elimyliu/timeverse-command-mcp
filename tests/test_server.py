@@ -6,6 +6,8 @@ server 模块测试
     - call_tool 处理 bash / python / node 工具
     - 危险命令返回错误而非真正执行
 """
+import json
+
 import pytest
 
 from timeverse_command.server import _run_and_collect, list_tools
@@ -43,8 +45,6 @@ class TestCallTool:
     @pytest.mark.asyncio
     async def test_bash_hello_world(self) -> None:
         """bash 执行 echo hello"""
-        import json
-
         result_text = await _run_and_collect("bash", {"command": "echo hello"})
         result = json.loads(result_text)
 
@@ -55,8 +55,6 @@ class TestCallTool:
     @pytest.mark.asyncio
     async def test_python_execution(self) -> None:
         """python 工具执行计算"""
-        import json
-
         result_text = await _run_and_collect("python", {"code": "print(2+3)"})
         result = json.loads(result_text)
 
@@ -66,8 +64,6 @@ class TestCallTool:
     @pytest.mark.asyncio
     async def test_empty_command(self) -> None:
         """空命令应返回错误"""
-        import json
-
         result_text = await _run_and_collect("bash", {"command": ""})
         result = json.loads(result_text)
 
@@ -76,8 +72,6 @@ class TestCallTool:
     @pytest.mark.asyncio
     async def test_node_execution(self) -> None:
         """node 工具执行 JS"""
-        import json
-
         result_text = await _run_and_collect("node", {"code": "console.log('ok')"})
         result = json.loads(result_text)
 
