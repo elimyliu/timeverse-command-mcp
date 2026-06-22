@@ -1,0 +1,11 @@
+{
+  "_comment": "源码开发模式。从本地 checkout 目录启动，便于修改后立即生效。",
+  "mcpServers": {
+    "timeverse-command-dev": {
+      "command": "python",
+      "args": ["-m", "timeverse_command.server"],
+      "cwd": "/Users/yourname/path/to/timeverse-command-mcp/src",
+      "env": {}
+    }
+  }
+}

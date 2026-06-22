@@ -1,0 +1,10 @@
+{
+  "_comment": "使用 uv 运行（无需预装 Python 环境，由 uv 自动管理）。",
+  "mcpServers": {
+    "timeverse-command-uvx": {
+      "command": "uvx",
+      "args": ["timeverse-command-mcp"],
+      "env": {}
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "_comment": "Python API 调用示例。安装包后 import timeverse_command 即可使用。",
+  "mcpServers": {
+    "timeverse-command-python": {
+      "command": "python",
+      "args": ["-m", "timeverse_command.server"],
+      "env": {}
+    }
+  }
+}

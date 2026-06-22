@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "timeverse-command": {
+      "command": "timeverse-command-mcp",
+      "args": [],
+      "env": {}
+    }
+  }
+}
