@@ -7,6 +7,7 @@ executor 模块测试
     - 取消功能
     - 跨平台 shell 构建
 """
+
 import asyncio
 import sys
 
@@ -19,7 +20,6 @@ from timeverse_command import (
     get_default_shell,
     get_executor,
 )
-
 
 # ==================== Shell 配置测试 ====================
 

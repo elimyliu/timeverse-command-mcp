@@ -30,12 +30,14 @@
     finally:
         executor.unregister(session.tool_call_id)
 """
+
 import asyncio
 import os
 import platform
 import time
+from collections.abc import AsyncIterator
 from dataclasses import dataclass, field
-from typing import Any, AsyncIterator, Dict, List, Optional
+from typing import Any
 
 # ==================== 跨平台 Shell 配置 ====================
 
@@ -60,7 +62,7 @@ def get_default_shell() -> str:
         return "bash"
 
 
-def build_shell_command(shell: str, command: str) -> List[str]:
+def build_shell_command(shell: str, command: str) -> list[str]:
     """
     构造跨平台 shell 执行命令
 
@@ -109,18 +111,19 @@ class AsyncCommandSession:
         env: 额外环境变量
         use_pty: 是否使用 PTY 模式（仅在 TimeVerse 客户端生效，MCP 模式固定为 pipe）
     """
+
     tool_call_id: str
     command: str
     tool_name: str = "bash"
-    cwd: Optional[str] = None
-    timeout: Optional[int] = None
-    env: Optional[Dict[str, str]] = None
+    cwd: str | None = None
+    timeout: int | None = None
+    env: dict[str, str] | None = None
     use_pty: bool = False
-    _process: Optional[asyncio.subprocess.Process] = field(default=None, init=False, repr=False)
-    _started_at: Optional[float] = field(default=None, init=False, repr=False)
+    _process: asyncio.subprocess.Process | None = field(default=None, init=False, repr=False)
+    _started_at: float | None = field(default=None, init=False, repr=False)
     _cancelled: bool = field(default=False, init=False, repr=False)
 
-    async def run(self) -> AsyncIterator[Dict[str, Any]]:
+    async def run(self) -> AsyncIterator[dict[str, Any]]:
         """
         异步执行命令，yield 流式输出块
 
@@ -221,7 +224,8 @@ class AsyncCommandSession:
         try:
             if self.timeout:
                 exit_code = await asyncio.wait_for(
-                    self._process.wait(), timeout=self.timeout  # type: ignore
+                    self._process.wait(),
+                    timeout=self.timeout,  # type: ignore
                 )
             else:
                 exit_code = await self._process.wait()  # type: ignore
@@ -280,7 +284,7 @@ class CommandExecutor:
 
     def __init__(self) -> None:
         """初始化执行器（空会话表）"""
-        self._sessions: Dict[str, AsyncCommandSession] = {}
+        self._sessions: dict[str, AsyncCommandSession] = {}
 
     def register(self, session: AsyncCommandSession) -> None:
         """
@@ -300,7 +304,7 @@ class CommandExecutor:
         """
         self._sessions.pop(tool_call_id, None)
 
-    def get(self, tool_call_id: str) -> Optional[AsyncCommandSession]:
+    def get(self, tool_call_id: str) -> AsyncCommandSession | None:
         """
         查询会话
 
@@ -312,7 +316,7 @@ class CommandExecutor:
         """
         return self._sessions.get(tool_call_id)
 
-    def list_active(self) -> List[str]:
+    def list_active(self) -> list[str]:
         """
         列出所有活跃会话的 tool_call_id
 
@@ -340,7 +344,7 @@ class CommandExecutor:
 
 # ==================== 全局单例 ====================
 
-_executor: Optional[CommandExecutor] = None
+_executor: CommandExecutor | None = None
 
 
 def get_executor() -> CommandExecutor:

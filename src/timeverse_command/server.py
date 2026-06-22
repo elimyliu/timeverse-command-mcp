@@ -27,11 +27,13 @@ timeverse-command MCP Server 入口
     #   }
     # }
 """
+
 import asyncio
 import json
 import logging
 import sys
-from typing import Any, Dict
+import time
+from typing import Any
 
 from mcp.server import Server
 from mcp.server.stdio import stdio_server
@@ -119,8 +121,7 @@ async def list_tools() -> list[Tool]:
         Tool(
             name="node",
             description=(
-                "在本地 Node.js 中执行单段代码（node -e）。"
-                "适合 JavaScript 计算、JSON 处理。"
+                "在本地 Node.js 中执行单段代码（node -e）。适合 JavaScript 计算、JSON 处理。"
             ),
             inputSchema={
                 "type": "object",
@@ -144,7 +145,7 @@ async def list_tools() -> list[Tool]:
 # ==================== 工具调用处理 ====================
 
 
-async def _run_and_collect(name: str, args: Dict[str, Any]) -> str:
+async def _run_and_collect(name: str, args: dict[str, Any]) -> str:
     """
     执行命令并把流式输出累积为最终文本返回给 LLM
 
@@ -173,7 +174,7 @@ async def _run_and_collect(name: str, args: Dict[str, Any]) -> str:
 
     # 创建会话
     session = AsyncCommandSession(
-        tool_call_id=f"mcp-{id(session)}",  # MCP 模式下不直接关联 tool_call_log
+        tool_call_id=f"mcp-{id(time)}",  # MCP 模式下不直接关联 tool_call_log
         command=command,
         tool_name=name,
         cwd=cwd,
