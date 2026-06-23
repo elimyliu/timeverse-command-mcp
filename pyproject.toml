@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "timeverse-command-mcp"
-version = "0.1.0"
+version = "0.1.1"
 description = "MCP server for executing shell, Python, and Node.js commands locally"
 readme = "README.md"
 license = { text = "MIT" }
